@@ -33,3 +33,7 @@ C:\Users\mamta_000\Source\Repos\TreeViewApp\TreeViewApp\bin\Debug\ShockwaveFlash
 C:\Users\mamta_000\Source\Repos\TreeViewApp\TreeViewApp\obj\Debug\TreeViewApp.exe
 C:\Users\mamta_000\Source\Repos\TreeViewApp\TreeViewApp\obj\Debug\TreeViewApp.xml
 C:\Users\mamta_000\Source\Repos\TreeViewApp\TreeViewApp\obj\Debug\TreeViewApp.pdb
+C:\Users\mamta_000\Documents\Visual Studio 2015\Projects\TreeViewApp\TreeViewApp\bin\Debug\TreeViewApp.exe.config
+C:\Users\mamta_000\Documents\Visual Studio 2015\Projects\TreeViewApp\TreeViewApp\obj\Debug\TreeViewApp.exe
+C:\Users\mamta_000\Documents\Visual Studio 2015\Projects\TreeViewApp\TreeViewApp\obj\Debug\TreeViewApp.xml
+C:\Users\mamta_000\Documents\Visual Studio 2015\Projects\TreeViewApp\TreeViewApp\obj\Debug\TreeViewApp.pdb
