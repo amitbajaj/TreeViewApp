@@ -61,13 +61,7 @@ Public Class frmMenu
         If sDBName = "" Then
             sDBName = InputBox("Enter the database to load: ", "Database Name", "TreeView.mdb")
         End If
-        With TreeView1
-            If .Nodes.Count > 0 Then
-                For iNodeCount = .Nodes.Count - 1 To 0 Step -1
-                    .Nodes.RemoveAt(0)
-                Next
-            End If
-        End With
+        TreeView1.Nodes.Clear()
         If OpenConn(sDBName) Then
             CreateChildNodes(TreeView1)
             lblStatus.Text = sDBName
@@ -309,7 +303,7 @@ Public Class frmMenu
             nCollection = nNode.Nodes
         End If
         For Each nChildNode In nCollection
-            If nChildNode.Text.Length >= sSearchText.Length Then
+            If nChildNode.Text.Length > sSearchText.Length Then
                 sCompareString = UCase(nChildNode.Text).Substring(0, Len(sSearchText))
             Else
                 sCompareString = UCase(nChildNode.Text)
@@ -446,9 +440,7 @@ Public Class frmMenu
                     Exit Sub
                 End If
             Else
-                For iCount = TreeView1.Nodes.Count To 1 Step -1
-                    TreeView1.Nodes.RemoveAt(0)
-                Next
+                TreeView1.Nodes.Clear()
                 TreeView1.Nodes.Add(nNode)
             End If
             LoadFolder(nNode, dirInfo)
@@ -492,7 +484,7 @@ Public Class frmMenu
                         If destFolder.ShowDialog() = DialogResult.OK Then
                             If My.Computer.FileSystem.DirectoryExists(sSource) Then
                                 Try
-                                    My.Computer.FileSystem.CopyDirectory(sSource, destFolder.SelectedPath, FileIO.UIOption.AllDialogs)
+                                    My.Computer.FileSystem.CopyDirectory(sSource, destFolder.SelectedPath & "\" & My.Computer.FileSystem.GetFileInfo(sSource).Name, FileIO.UIOption.AllDialogs)
                                     MsgBox("Folder copied successfully!")
                                     LoadTree(CurrentDatabaseName)
                                 Catch ex As Exception
@@ -501,7 +493,7 @@ Public Class frmMenu
 
                             ElseIf My.Computer.FileSystem.FileExists(sSource) Then
                                 Try
-                                    My.Computer.FileSystem.CopyFile(sSource, destFolder.SelectedPath, FileIO.UIOption.AllDialogs)
+                                    My.Computer.FileSystem.CopyFile(sSource, destFolder.SelectedPath & "\" & My.Computer.FileSystem.GetFileInfo(sSource).Name, FileIO.UIOption.AllDialogs)
                                     MsgBox("Folder copied successfully!")
                                     LoadTree(CurrentDatabaseName)
                                 Catch ex As Exception
@@ -527,8 +519,9 @@ Public Class frmMenu
                         If destFolder.ShowDialog() = DialogResult.OK Then
                             If My.Computer.FileSystem.DirectoryExists(sSource) Then
                                 Try
-                                    My.Computer.FileSystem.MoveDirectory(sSource, destFolder.SelectedPath, FileIO.UIOption.AllDialogs)
-                                    MsgBox("Folder moved successfully!")
+
+                                    My.Computer.FileSystem.MoveDirectory(sSource, destFolder.SelectedPath & "\" & My.Computer.FileSystem.GetDirectoryInfo(sSource).Name, FileIO.UIOption.AllDialogs)
+                                    MsgBox("Folder moved successfully!" & vbCrLf & "Source: " & sSource & vbCrLf & "Destination: " & destFolder.SelectedPath.ToString())
                                     LoadTree(CurrentDatabaseName)
                                 Catch ex As Exception
                                     MsgBox("Error moving folder...." & vbCrLf & ex.Message)
@@ -536,7 +529,7 @@ Public Class frmMenu
 
                             ElseIf My.Computer.FileSystem.FileExists(sSource) Then
                                 Try
-                                    My.Computer.FileSystem.MoveFile(sSource, destFolder.SelectedPath, FileIO.UIOption.AllDialogs)
+                                    My.Computer.FileSystem.MoveFile(sSource, destFolder.SelectedPath & "\" & My.Computer.FileSystem.GetFileInfo(sSource).Name, FileIO.UIOption.AllDialogs)
                                     MsgBox("Folder moved successfully!")
                                     LoadTree(CurrentDatabaseName)
                                 Catch ex As Exception
